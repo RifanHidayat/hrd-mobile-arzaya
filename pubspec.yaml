@@ -1,0 +1,244 @@
+name: magentahrdios
+description: A new Flutter application.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+3
+
+environment:
+  sdk: ">=2.15.1 <3.0.0"
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+#  pie_chart: ^5.0.0
+#  provider: ^4.3.2 # source :: https://pub.dev/packages/provider
+#  charts_flutter: ^0.9.0 # source :: https://pub.dev/packages/charts_flutter
+#  bottom_navy_bar: ^5.6.0
+#  flutter_svg: ^0.19.3
+  flutter_svg:
+#  percent_indicator: ^2.1.7+2
+  shared_preferences: ^2.0.12
+  font_awesome_flutter: ^8.8.1
+
+
+#  google_maps_flutter_web: ^0.3.2+1
+  geocode: ^1.0.1
+  shimmer: ^2.0.0
+#  js: ^0.6.3
+  http: ^0.13.4
+  toast: ^0.1.5
+  change_app_package_name: ^1.0.0
+#  image_picker:
+  flutter_local_notifications: ^8.2.0
+    #  firebase_messaging: ^9.0.0
+    #  firebase_core: ^1.11.0
+#  path_provider: ^2.0.8
+#  path:
+  geolocator: ^5.3.0
+  image_picker: ^0.8.3
+  fluttertoast: ^8.0.8
+#  permission_handler:
+  permission_handler: ^8.3.0
+  flutter_icons: ^1.1.0
+#  shimmer: ^1.1.2
+#  carousel_pro: ^1.0.0
+    #  rxdart: ^0.20.0
+#  photo_view: ^0.10.0
+  photo_view: ^0.13.0
+  hexcolor: ^2.0.6
+  rflutter_alert: ^2.0.4
+  progress_dialog: ^1.2.4
+  cached_network_image:
+  pull_to_refresh: ^1.6.4
+  open_file: ^3.1.0
+  format_indonesia:
+  pdf: ^2.1.0
+
+
+
+  double_back_to_close_app: ^2.0.1
+#  zefyr:
+#  angular_quill: ^0.1.4
+  flutter_offline: ^2.0.0
+  json_table: ^2.0.1
+#  dio: ^3.0.3
+    #  file_picker: ^1.3.6
+#  syncfusion_flutter_datepicker: ^19.1.67-beta
+  syncfusion_flutter_datepicker: ^19.4.47
+    #  date_range_picker:
+  infinite_scroll_pagination: ^3.1.0
+#  async:
+#  calendarro:
+    # open pdf document
+  google_maps_flutter: ^2.1.1
+#  google_maps: ^5.3.0
+#  flutter_map:
+#  image_picker_web: ^2.1.0
+  location: ^4.3.0
+  page_transition: ^2.0.4
+  multi_image_picker2: ^5.0.2
+
+  flutter_launcher_icons:
+#  mapbox_gl:
+  get: ^4.6.1
+  intl:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter_icons:
+#  android: "launcher_icon"
+#  ios: true
+#  image_path: "assets/logo.jpg"
+  android: true
+  ios: true
+
+  image_path: "assets/icon.jpg"
+  adaptive_icon_foreground: "assets/icon.jpg"
+  adaptive_icon_background: "assets/icon.jpg"
+  adaptive_icon_padding: true
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^1.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  assets:
+    - assets/female_avatar.svg
+    - assets/male_avatar.svg
+    - assets/splass.jpg
+    - assets/absen.jpeg
+    - assets/checkin.png
+    - assets/overtimein.png
+    - assets/overtimeout.png
+    - assets/budgetin.png
+    - assets/budgetout.png
+    - assets/photo.png
+    - assets/fingerprint.png
+    - assets/check-in.svg
+    - assets/checkout.svg
+    - assets/project.svg
+    - assets/budget.svg
+    - assets/absent.svg
+    - assets/map.json
+    - assets/task.svg
+    - assets/wellcome.svg
+    - assets/login.svg
+    - assets/splassscreen.svg
+    - assets/employee_profile.svg
+    - assets/no_data_project.svg
+    - assets/gallery.svg
+    - assets/camera.svg
+    - assets/google-maps.svg
+    - assets/pyslip.svg
+    - assets/offwork.svg
+    - assets/announcement.jpg
+    - assets/receipt.svg
+    - assets/map_style.json
+    - assets/office.svg
+    - assets/home.png
+    - assets/nobudget.svg
+    - assets/notification.svg
+    - assets/emplyee_maps.png
+    - assets/office.png
+    - assets/leave.svg
+    - assets/announcement.svg
+    - assets/employees.svg
+    - assets/nopayslip.svg
+    - assets/sick.svg
+    - assets/permission.svg
+    - assets/loan.svg
+    - assets/profile-default.png
+    - assets/logo.jpg
+    - assets/travel.png
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+
+
+  fonts:
+    - family: SFReguler
+      fonts:
+        - asset: fonts/SF-UI-Display-Regular.ttf
+
+    - family: SFBlack
+      fonts:
+        - asset: fonts/SF-UI-Display-Black.otf
+
+    - family: Ultralight
+      fonts:
+        - asset: fonts/SF-UI-Display-Ultralight.otf
+
+    - family: roboto-regular
+      fonts:
+        - asset: fonts/roboto/Roboto-Regular.ttf
+    - family: roboto-bold
+      fonts:
+        - asset:  fonts/roboto/Roboto-Bold.ttf
+    - family: roboto-medium
+      fonts:
+        - asset:  fonts/roboto/Roboto-Medium.ttf
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
