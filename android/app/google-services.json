@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "963583490082",
+    "project_id": "hrd-mobile",
+    "storage_bucket": "hrd-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963583490082:android:286b7bee214961a6de727b",
+        "android_client_info": {
+          "package_name": "com.arenzha.arzaya.hrd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963583490082-h5raffeb4sejugc798q0ucgsbn1h4s29.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arenzha.arzaya.hrd",
+            "certificate_hash": "79ccdf98d39d3d27c004d5d68a0d89cda3e9d469"
+          }
+        },
+        {
+          "client_id": "963583490082-v3c069m5i4m5psmqj4ogi43s1mr4beg2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwJXAUR4VqtL1vtzMS77DO63UfAODXkzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963583490082-v3c069m5i4m5psmqj4ogi43s1mr4beg2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
