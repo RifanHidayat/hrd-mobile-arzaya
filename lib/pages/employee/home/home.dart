@@ -5,16 +5,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:format_indonesia/format_indonesia.dart';
 import 'package:intl/intl.dart';
 
 import 'package:magentahrdios/models/notifacations.dart';
+import 'package:magentahrdios/pages/announcement/detail.dart';
 import 'package:magentahrdios/pages/employee/attendances/attendances.dart';
 import 'package:magentahrdios/pages/employee/attendances/checkin.dart';
 import 'package:magentahrdios/pages/employee/attendances/checkout.dart';
 import 'package:magentahrdios/pages/employee/leave/LeaveList.dart';
 import 'package:magentahrdios/pages/employee/login/login.dart';
+import 'package:magentahrdios/pages/employee/notification/notification.dart';
 import 'package:magentahrdios/pages/employee/official_travel/add_official_travel.dart';
 import 'package:magentahrdios/pages/employee/official_travel/official_travel.dart';
 import 'package:magentahrdios/pages/employee/permission/list.dart';
@@ -39,18 +43,22 @@ class _HomeEmployeeState extends State<HomeEmployee> {
   final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
 
   // final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
+//  FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
   // final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
   final List<Notif> ListNotif = [];
   Map? _projects;
-  bool _loading = true;
+  bool _loading = true,isLoadingNotif=true;
+  var notifiactionTotal="0";
+  List? attendances;
   var user_id, address, name;
   var employeeId, photo;
   var CHANNEL_CHECKIN_ID = 1;
   var CHANNEL_CHECKOUT_ID = 2;
   var officialTravelLength = 0;
+  var employeeType = "";
   var checkinTime = new Time(07, 45, 0);
+  List announcement = [];
 
   //-----main menu-----
   Widget _buildMenucheckin() {
@@ -659,34 +667,179 @@ class _HomeEmployeeState extends State<HomeEmployee> {
 
   //----end announcement
 
+
   Widget _buildNoAbbouncement() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 3.5,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              child: no_data_announcement,
+    return _loading == false
+        ? Container(
+            child: announcement.length > 0
+                ? Container(
+  child: Column(
+  children: List.generate(announcement.length, (index) {
+    return  InkWell(
+      onTap: (){
+        Navigator.push(
+            context,
+            PageTransition(
+                type: PageTransitionType.rightToLeft,
+                child: AnnouncementDetail(
+                  createdAt: announcement[index]['created_at'],
+                  title: announcement[index]['title'],
+                  description: announcement[index]['description'],
+                  attachment: announcement[index]['attachment'],
+                )));
+
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 10,right: 10),
+
+        height: 200,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: 10,
             ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          Text(
-            "Belum ada pengumuman",
-            style: TextStyle(
-                color: Colors.black,
-                fontFamily: "roboto-regular",
-                fontSize: 12,
-                letterSpacing: 0.5,
-                fontWeight: FontWeight.w500),
-          )
-        ],
+            Container(
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    height: 170,
+                    child: Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(10)),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius:
+                          BorderRadius.circular(10),
+                        ),
+                        child: Container(
+                          margin: EdgeInsets.all(25),
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "${announcement[index]['title']}",
+                                style: TextStyle(
+                                    color: baseColor,
+                                    letterSpacing: 0.5,
+                                    fontSize: 16),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+
+                                "Di Posting pada ${Waktu(DateTime.parse(announcement[index]['created_at'])).yMMMMEEEEd()}",
+                                style: TextStyle(
+                                    letterSpacing: 0.4,
+                                    color: Colors.black.withOpacity(0.3),
+                                    fontSize: 12),
+                              ),
+                              SizedBox(height: 10,),
+
+                              Container(
+                                child: RichText(
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    strutStyle: StrutStyle(fontSize: 10.0),
+                                    text: TextSpan(
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontFamily: "Roboto-regular",
+                                          letterSpacing: 0.5,
+                                          fontSize: 12),
+                                      text:
+                                      "${announcement[index]['description']}",
+                                    )),
+                                // child: Text(
+                                //   "Saya berada dalam kondisi sakit kepala dan tidak bisa banyak berpikir. Mohon pengertiannya, terimakasih. :",
+                                //   style: TextStyle(
+                                //       color: Colors.black,
+                                //       fontFamily: "inter-light",
+                                //       letterSpacing: 0.5,
+                                //       fontSize: 10),
+                                // ),
+                              ),
+                              // Text(
+                              //   "${announcement[index]['description']}",
+                              //   style: TextStyle(
+                              //       letterSpacing: 0.5,
+                              //       color: Colors.black,
+                              //       fontSize: 12),
+                              // ),
+
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: 40,
+                    height: 20,
+                    decoration: BoxDecoration(
+                        color: baseColor1,
+                        borderRadius: BorderRadius.circular(25)),
+                    child: Text(
+                      "New",
+                      style: TextStyle(
+                          letterSpacing:0.5,
+                          color: Colors.white,
+                          fontSize: 10),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
+
+
+  }),
+  ),
+  )
+                : Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 3.5,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            child: no_data_announcement,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          "Belum ada pengumuman",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: "roboto-regular",
+                              fontSize: 12,
+                              letterSpacing: 0.5,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
+                  ),
+          )
+        : Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 3.5,
+          child: Center(
+      child: CircularProgressIndicator(color: baseColor,),
+    ),
+        );
   }
 
   //data from api
@@ -715,6 +868,7 @@ class _HomeEmployeeState extends State<HomeEmployee> {
     // TODO: implement initState
     super.initState();
     getDatapref();
+
     // flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
     // var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
     // var iOS = new IOSInitializationSettings();
@@ -810,14 +964,37 @@ class _HomeEmployeeState extends State<HomeEmployee> {
                                           Container(
                                             margin: EdgeInsets.only(
                                                 left: 20, top: 25),
-                                            child: Text(
-                                              "Hi, ${name}",
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15,
-                                                  letterSpacing: 0.5,
-                                                  fontFamily: "roboto-regular",
-                                                  fontWeight: FontWeight.w400),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Hi, ${name ?? ""}",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15,
+                                                      letterSpacing: 0.5,
+                                                      fontFamily:
+                                                          "roboto-regular",
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  "${employeeType ?? ""}",
+                                                  style: TextStyle(
+                                                      color: Colors.white
+                                                          .withOpacity(0.3),
+                                                      fontSize: 13,
+                                                      letterSpacing: 0.5,
+                                                      fontFamily:
+                                                          "Roboto-regular",
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           Expanded(
@@ -828,24 +1005,35 @@ class _HomeEmployeeState extends State<HomeEmployee> {
                                                 left: 20, top: 25),
                                             child: Stack(
                                               children: [
-                                                Container(
-                                                  child: Icon(
-                                                    Icons
-                                                        .notifications_outlined,
-                                                    color: Colors.white,
-                                                    size: 20,
+                                                InkWell(
+                                                  onTap:(){
+                                                    Navigator.push(
+                                                        context,
+                                                        PageTransition(
+                                                            type: PageTransitionType.rightToLeft,
+                                                            child: NotificationPage()));
+                                              },
+                                                  child: Container(
+                                                    child: Icon(
+                                                      Icons
+                                                          .notifications_outlined,
+                                                      color: Colors.white,
+                                                      size: 20,
+                                                    ),
                                                   ),
                                                 ),
-                                                Container(
-                                                  width: 10,
-                                                  height: 10,
+                                               notifiactionTotal!=0? Container(
+                                                  width: 15,
+                                                  height: 15,
+                                                  alignment: Alignment.center,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10),
                                                     color: redBaseColor,
                                                   ),
-                                                ),
+                                                  child: Text("${notifiactionTotal}",style: TextStyle(fontSize: 10,color: Colors.white),textAlign: TextAlign.center,),
+                                                ):Container(),
                                               ],
                                             ),
                                           ))
@@ -890,7 +1078,10 @@ class _HomeEmployeeState extends State<HomeEmployee> {
                                     fontWeight: FontWeight.w500)),
                           ),
                           // _buildInformation(),
-                          _buildNoAbbouncement()
+                          Container(
+
+
+                              child: _buildNoAbbouncement())
                         ],
                       ),
                     ),
@@ -912,6 +1103,8 @@ class _HomeEmployeeState extends State<HomeEmployee> {
       name = sharedPreferences.getString("first_name");
       _employee(user_id);
       _fetchOfficialTravel(user_id);
+      fetchAttendances(user_id);
+
     });
     setState(() {
       dataProject(user_id);
@@ -928,6 +1121,8 @@ class _HomeEmployeeState extends State<HomeEmployee> {
         name = data['data']['first_name'];
         photo = data['data']['photo'];
         employeeId = data['data']['employee_id'];
+        employeeType = data['data']['career']!=null?data['data']['career']['position_setting']['name  ']:null;
+        _fetchAnnouncement();
       });
     } else {}
   }
@@ -978,38 +1173,53 @@ class _HomeEmployeeState extends State<HomeEmployee> {
       print("${e}");
     }
   }
+  Future fetchAttendances(var id) async {
+    try {
+      setState(() {
+        isLoadingNotif = true;
+      });
+      http.Response response =
+      await http.get(Uri.parse("$base_url/api/notification/${user_id}/total"));
 
-  checkinNotification() async {
-    var android = new AndroidNotificationDetails(
-      'channel id',
-      'channel NAME',
-      'CHANNEL DESCRIPTION',
-      priority: Priority.high,
-      importance: Importance.max,
-      icon: 'icon',
-      largeIcon: DrawableResourceAndroidBitmap('icon'),
-      sound: RawResourceAndroidNotificationSound('a_long_cold_sting'),
-    );
-    var iOS = new IOSNotificationDetails(
-        sound: 'a_long_cold_sting.wav',
-        presentAlert: true,
-        presentBadge: true,
-        presentSound: true);
-    var platform = new NotificationDetails(android: android, iOS: iOS);
-    var platformChannelSpecifics =
-        NotificationDetails(android: android, iOS: iOS);
-    // await flutterLocalNotificationsPlugin.show(
-    //     0, 'New Tutorial', 'Local Notification', platform,
-    //     payload: 'AndroidCoding.in');
 
-    // await flutterLocalNotificationsPlugin.schedule(CHANNEL_CHECKIN_ID, 'Reminder', "Buruan melalakukan checkin",
-    //     scheduledNotificationDateTime, platformChannelSpecifics);
-    await flutterLocalNotificationsPlugin?.showDailyAtTime(
-        CHANNEL_CHECKIN_ID,
-        "Reminder",
-        "Lakukan checkin sebelum jam 07:55:00",
-        checkinTime,
-        platformChannelSpecifics);
-    // await flutterLocalNotificationsPlugin.schedule(id, title, body, scheduledDate, notificationDetails)
+      setState(() {
+
+        notifiactionTotal=response.body;
+
+        ;
+      });
+      //print("data ${jsonDecode(response.body[0])}");
+
+      setState(() {
+        isLoadingNotif = false;
+      });
+    } catch (e) {
+      print("${e}");
+    }
   }
+  Future _fetchAnnouncement() async {
+    try {
+      setState(() {
+        _loading = true;
+      });
+      var date = DateFormat('yyyy-MM-dd').format(DateTime.now());
+      http.Response response = await http.get(Uri.parse(
+          "${base_url}/api/announcement?start_date=${date}&position=${employeeType}"));
+      List data = jsonDecode(response.body);
+      print("dataqq ${data.length}");
+      setState(() {
+        announcement=data;
+      });
+
+      // print(response.body);
+
+      setState(() {
+        _loading = false;
+      });
+    } catch (e) {
+      print("${e}");
+    }
+  }
+
+
 }

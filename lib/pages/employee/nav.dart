@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:magentahrdios/pages/employee/account/account.dart';
+import 'package:magentahrdios/pages/employee/career/tabmenu.dart';
 
 import 'package:magentahrdios/pages/employee/home/home.dart';
+import 'package:magentahrdios/pages/employee/sop/files.dart';
+import 'package:magentahrdios/pages/employee/sop/tabmenu.dart';
 import 'package:magentahrdios/utalities/color.dart';
 
 class NavBarEmployee extends StatefulWidget {
@@ -15,6 +18,8 @@ class _NavBarEmployeeState extends State<NavBarEmployee> {
   int currentTab = 0; // to keep track of active tab index
   final List<Widget> screens = [
     HomeEmployee(),
+    TabsmenuCareer(),
+    Files(),
     AccountEmployee(),
   ]; // to store nested tabs
   final PageStorageBucket bucket = PageStorageBucket();
@@ -59,6 +64,68 @@ class _NavBarEmployeeState extends State<NavBarEmployee> {
                           style: TextStyle(
                               color:
                                   currentTab == 0 ? baseColor : blackColor3,
+                              fontFamily: "Roboto-medium",letterSpacing: 0.5,fontSize: 11),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        currentScreen =
+                            TabsmenuCareer(); // if user taps on this dashboard tab will be active
+                        currentTab = 1;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.list_outlined,
+                          color: currentTab == 1? baseColor : blackColor3,
+                        ),
+                        Text(
+                          'Review',
+                          style: TextStyle(
+                              color:
+                              currentTab == 1 ? baseColor : blackColor3,
+                              fontFamily: "Roboto-medium",letterSpacing: 0.5,fontSize: 11),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  MaterialButton(
+                    minWidth: 40,
+                    onPressed: () {
+                      setState(() {
+                        currentScreen =
+                            Files(); // if user taps on this dashboard tab will be active
+                        currentTab = 2;
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.file_copy,
+                          color: currentTab == 2? baseColor : blackColor3,
+                        ),
+                        Text(
+                          'Files',
+                          style: TextStyle(
+                              color:
+                              currentTab == 2 ? baseColor : blackColor3,
                               fontFamily: "Roboto-medium",letterSpacing: 0.5,fontSize: 11),
                         ),
                       ],

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 // import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,8 +17,9 @@ import 'package:toast/toast.dart';
 //
 // String base_url = "https://hrd.magentamediatama.net";
 String image_ur = "https://arzaya-hrd.s3.ap-southeast-1.amazonaws.com";
-String base_url = "http://192.168.100.100:8000";
-// String image_ur = "https://hrd.arzaya.net";
+// String base_url = "http://192.168.2.110:8000";
+//String base_url = "http://192.168.1.2:8000";
+String base_url = "https://hrd.arzaya.net";
 String baset_url_event = "https://react.magentamediatama.net";
 
 class Services {
@@ -31,11 +33,12 @@ class Services {
     loading(context);
     try {
       // String fcm_registration_token = await FirebaseMessaging().getAPNSToken();
+      String? fcm_registration_token=await FirebaseMessaging.instance.getToken();
       final response = await http
           .post(Uri.parse("$base_url/api/login/mobile/employee"), body: {
         "username": username.toString().trim(),
         "password": password,
-        // "fcm_registration_token": fcm_registration_token
+       "fcm_registration_token": fcm_registration_token
       });
 
       //
@@ -220,8 +223,9 @@ class Services {
       status,
       office_latitude,
       office_longitude,
+      categoryAbsence,
       category) async {
-    print("photo ${photos}");
+    print("photo ${categoryAbsence}");
 
     loading(context);
 
@@ -239,7 +243,8 @@ class Services {
       "category": "$category",
       "office_latitude": office_latitude,
       "office_longitude": office_longitude,
-      "screen": "DetailAttendanceAdmin"
+      "screen": "DetailAttendanceAdmin",
+      'is_official_travel':"${categoryAbsence=="Kantor"?"0":"1"}"
     });
 
     final responseJson = jsonDecode(response.body);
@@ -270,7 +275,8 @@ class Services {
       status,
       office_latitude,
       office_longitude,
-      category) async {
+      category,isLembur) async {
+    print(isLembur);
     loading(context);
     final response = await http
         .post(Uri.parse("$base_url/api/attendances/action/check-out"), body: {
@@ -285,7 +291,8 @@ class Services {
       "category": "$category",
       "office_latitude": office_latitude,
       "office_longitude": office_longitude,
-      "screen": "DetailAttendanceAdmin"
+      "screen": "DetailAttendanceAdmin",
+      "is_overtime":isLembur.toString()
     });
 
     final responseJson = jsonDecode(response.body);
@@ -301,6 +308,7 @@ class Services {
       Navigator.pop(context);
     } else {
       Navigator.pop(context);
+      print("${responseJson}");
 
       alert_info(context, "${responseJson['message']}", "Back");
     }

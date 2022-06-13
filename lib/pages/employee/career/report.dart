@@ -27,28 +27,26 @@
 //   }
 // }
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:magentahrdios/services/api_clien.dart';
-import 'package:magentahrdios/shared_preferenced/sessionmanage.dart';
 import 'package:magentahrdios/utalities/color.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class CoePage extends StatefulWidget {
+class CareerAttachmentPage extends StatefulWidget {
+  var attachment,title;
 
+  CareerAttachmentPage ({this.attachment,this.title});
 
   @override
-  _CoePageState createState() => _CoePageState();
+  _CareerAttachmentPageState createState() => _CareerAttachmentPageState();
 }
 
-class _CoePageState extends State<CoePage> {
+class _CareerAttachmentPageState extends State<CareerAttachmentPage > {
   String urlPDFPath = "";
   bool exists = true;
   int _totalPages = 0;
@@ -57,14 +55,13 @@ class _CoePageState extends State<CoePage> {
   PDFViewController? _pdfViewController;
   bool loaded = false;
 
-
   Future<File> getFileFromUrl(String url, {name}) async {
     var fileName = 'testonline';
     if (name != null) {
       fileName = name;
     }
     try {
-      var data = await http.get(Uri.parse("${url}"));
+      var data = await http.get(Uri.parse("${base_url}/api/${widget.attachment}"));
       var bytes = data.bodyBytes;
       var dir = await getApplicationDocumentsDirectory();
       File file = File("${dir.path}/" + fileName + ".pdf");
@@ -78,8 +75,20 @@ class _CoePageState extends State<CoePage> {
 
   @override
   void initState() {
-    getDatapref();
-
+    print("url ${base_url}/api/${widget.attachment}");
+    getFileFromUrl("http://www.africau.edu/images/default/sample.pdf").then(
+          (value) => {
+        setState(() {
+          if (value != null) {
+            urlPDFPath = value.path;
+            loaded = true;
+            exists = true;
+          } else {
+            exists = false;
+          }
+        })
+      },
+    );
     super.initState();
   }
 
@@ -88,8 +97,24 @@ class _CoePageState extends State<CoePage> {
     print(urlPDFPath);
     if (loaded) {
       return Scaffold(
-
-
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          // iconTheme: IconThemeData(
+          //   color: Colors.white, //modify arrow color from here..
+          // ),
+          backgroundColor: baseColor,
+          title: new Text(
+            "${widget.title??"Lampiran"}",
+            style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Roboto-medium",
+                fontSize: 18,
+                letterSpacing: 0.5),
+          ),
+        ),
         body: PDFView(
           filePath: urlPDFPath,
           autoSpacing: true,
@@ -158,7 +183,24 @@ class _CoePageState extends State<CoePage> {
       if (exists) {
         //Replace with your loading UI
         return Scaffold(
-
+          appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            // iconTheme: IconThemeData(
+            //   color: Colors.white, //modify arrow color from here..
+            // ),
+            backgroundColor: baseColor,
+            title: new Text(
+              "Lampiran",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Roboto-medium",
+                  fontSize: 18,
+                  letterSpacing: 0.5),
+            ),
+          ),
           body: Container(
             width: Get.mediaQuery.size.width,
             height: Get.mediaQuery.size.height,
@@ -196,39 +238,5 @@ class _CoePageState extends State<CoePage> {
         );
       }
     }
-  }
-  void getDatapref() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-
-      var user_id = sharedPreferences.getString("user_id");
-      _employee(user_id);
-    });
-  }
-
-  Future _employee(id) async {
-    final response = await http.get(Uri.parse("$base_url/api/employees/${id}"));
-    final data = jsonDecode(response.body);
-
-    if (data['code'] == 200) {
-
-      //build personal information
-      setState(() {
-        var file=data['data']['location']!=null?data['data']['location']['coe_attachment']:"";
-        getFileFromUrl("${image_ur}/${file}").then(
-              (value) => {
-            setState(() {
-              if (value != null) {
-                urlPDFPath = value.path;
-                loaded = true;
-                exists = true;
-              } else {
-                exists = false;
-              }
-            })
-          },
-        );
-      });
-    } else {}
   }
 }

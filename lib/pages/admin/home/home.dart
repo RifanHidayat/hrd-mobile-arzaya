@@ -1,8 +1,5 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -11,21 +8,20 @@ import 'package:get/get.dart';
 
 
 import 'package:magentahrdios/pages/admin/absence/tabmenu_absence.dart';
-import 'package:magentahrdios/pages/admin/employees/DetailEmployee.dart';
 import 'package:magentahrdios/pages/admin/employees/list.dart';
 import 'package:magentahrdios/pages/admin/leave/tabmenu_offwork.dart';
 import 'package:magentahrdios/pages/admin/permission/tabmenu.dart';
-import 'package:magentahrdios/pages/admin/project/tabmenu_project.dart';
+
 import 'package:magentahrdios/pages/admin/sick/tabmenu.dart';
 import 'package:magentahrdios/pages/employee/account/profile.dart';
 import 'package:magentahrdios/pages/employee/attendances/attendances.dart';
 import 'package:magentahrdios/pages/employee/attendances/checkin.dart';
+
 import 'package:magentahrdios/pages/employee/attendances/checkout.dart';
 import 'package:magentahrdios/pages/employee/leave/LeaveList.dart';
-import 'package:magentahrdios/pages/employee/login/login.dart';
-// import 'package:magentahrdios/pages/employee/login/login.dart';
 import 'package:magentahrdios/pages/employee/permission/list.dart';
 import 'package:magentahrdios/pages/employee/sick/list.dart';
+
 import 'package:magentahrdios/services/api_clien.dart';
 import 'package:magentahrdios/utalities/color.dart';
 import 'package:magentahrdios/utalities/constants.dart';
@@ -34,6 +30,7 @@ import 'package:page_transition/page_transition.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 class HomeAdmin extends StatefulWidget {
   @override
@@ -61,7 +58,7 @@ class _HomeAdminState extends State<HomeAdmin> {
   var CHANNEL_CHECKIN_ID = 1;
   var CHANNEL_CHECKOUT_ID = 2;
   var checkinTime = new Time(07, 45, 0);
-  FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
+  //FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
   final GlobalKey<ScaffoldState> scaffoldState = new GlobalKey<ScaffoldState>();
 
@@ -892,6 +889,9 @@ class _HomeAdminState extends State<HomeAdmin> {
     ]);
   }
 
+
+
+
   Widget _buildCardMenu() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1693,34 +1693,34 @@ class _HomeAdminState extends State<HomeAdmin> {
     // flutterLocalNotificationsPlugin.initialize(initSetttings,
     //     onSelectNotification: onSelectNotification);
   }
-
-  checkinNotification() async {
-    var android = new AndroidNotificationDetails(
-      'channel id',
-      'channel NAME',
-      'CHANNEL DESCRIPTION',
-      priority: Priority.high,
-      importance: Importance.max,
-      icon: 'icon',
-      largeIcon: DrawableResourceAndroidBitmap('icon'),
-      sound: RawResourceAndroidNotificationSound('a_long_cold_sting'),
-    );
-    var iOS = new IOSNotificationDetails(
-        sound: 'a_long_cold_sting.wav',
-        presentAlert: true,
-        presentBadge: true,
-        presentSound: true);
-    var platform = new NotificationDetails(android: android, iOS: iOS);
-    var platformChannelSpecifics =
-        NotificationDetails(android: android, iOS: iOS);
-    // await flutterLocalNotificationsPlugin.show(
-    //     0, 'New Tutorial', 'Local Notification', platform,
-    //     payload: 'AndroidCoding.in');
-
-    // await flutterLocalNotificationsPlugin.schedule(CHANNEL_CHECKIN_ID, 'Reminder', "Buruan melalakukan checkin",
-    //     scheduledNotificationDateTime, platformChannelSpecifics);
-    await flutterLocalNotificationsPlugin?.showDailyAtTime(CHANNEL_CHECKIN_ID,
-        "Reminder", "Lakukan checkin sebelum jam 07:55:00", checkinTime, platformChannelSpecifics);
-    // await flutterLocalNotificationsPlugin.schedule(id, title, body, scheduledDate, notificationDetails)
-  }
+  //
+  // checkinNotification() async {
+  //   var android = new AndroidNotificationDetails(
+  //     'channel id',
+  //     'channel NAME',
+  //     'CHANNEL DESCRIPTION',
+  //     priority: Priority.high,
+  //     importance: Importance.max,
+  //     icon: 'icon',
+  //     largeIcon: DrawableResourceAndroidBitmap('icon'),
+  //     sound: RawResourceAndroidNotificationSound('a_long_cold_sting'),
+  //   );
+  //   var iOS = new IOSNotificationDetails(
+  //       sound: 'a_long_cold_sting.wav',
+  //       presentAlert: true,
+  //       presentBadge: true,
+  //       presentSound: true);
+  //   var platform = new NotificationDetails(android: android, iOS: iOS);
+  //   var platformChannelSpecifics =
+  //       NotificationDetails(android: android, iOS: iOS);
+  //   // await flutterLocalNotificationsPlugin.show(
+  //   //     0, 'New Tutorial', 'Local Notification', platform,
+  //   //     payload: 'AndroidCoding.in');
+  //
+  //   // await flutterLocalNotificationsPlugin.schedule(CHANNEL_CHECKIN_ID, 'Reminder', "Buruan melalakukan checkin",
+  //   //     scheduledNotificationDateTime, platformChannelSpecifics);
+  //   await flutterLocalNotificationsPlugin?.showDailyAtTime(CHANNEL_CHECKIN_ID,
+  //       "Reminder", "Lakukan checkin sebelum jam 07:55:00", checkinTime, platformChannelSpecifics);
+  //   // await flutterLocalNotificationsPlugin.schedule(id, title, body, scheduledDate, notificationDetails)
+  // }
 }

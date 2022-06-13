@@ -11,7 +11,7 @@ import 'package:magentahrdios/utalities/color.dart';
 import 'package:magentahrdios/utalities/constants.dart';
 import 'package:magentahrdios/utalities/fonts.dart';
 
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 class MapsDetail extends StatefulWidget {
   @override

@@ -127,12 +127,16 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       Expanded(
                         child: Container(
 
+
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                          margin: EdgeInsets.only(left: 20, right: 20),
+                          child: Row(
+
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              _buildfingerprint(),
+                              _buildbtnCheckout(),
+                              _buildbtnCheckoutOvertime()
                             ],
                           ),
                         ),
@@ -418,19 +422,20 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   //Widger photo
-  Widget _buildfingerprint() {
+  Widget _buildbtnCheckout() {
     return InkWell(
       onTap: () {
-        upload();
+        var isLembur=0;
+        upload(isLembur);
       },
       child: Container(
-        margin: EdgeInsets.only(left: 20, right: 20),
 
-        width: Get.mediaQuery.size.width,
+
+        width: Get.mediaQuery.size.width/2-30,
 
         child: ElevatedButton(
             onPressed: () {
-              upload();
+              upload(0);
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(baseColor),
@@ -443,7 +448,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               "Checkout",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
+                  fontSize: 12,
                   fontFamily: "Roboto-regular"),
             )),
         // child: Card(
@@ -465,7 +470,52 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Future upload() async {
+  Widget _buildbtnCheckoutOvertime() {
+    return InkWell(
+      onTap: () {
+        var isLembur=1;
+        upload(isLembur);
+      },
+      child: Container(
+        width: Get.mediaQuery.size.width/2-30,
+        child: ElevatedButton(
+            onPressed: () {
+              upload(1);
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(baseColor),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  )),
+            ),
+            child: const Text(
+              "Checkout Lembur",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontFamily: "Roboto-regular"),
+            )),
+        // child: Card(
+        //   color: baseColor,
+        //
+        //   elevation: 1,
+        //   shape: RoundedRectangleBorder(
+        //
+        //     borderRadius: BorderRadius.circular(30.0),
+        //   ),
+        //   child: Container(
+        //     margin: EdgeInsets.all(15.0),
+        //     child: Image.asset(
+        //       "assets/fingerprint.png",
+        //     ),
+        //   ),
+        // ),
+      ),
+    );
+  }
+
+  Future upload(isLembur) async {
     if (_category_absent == null) {
       _category_absent = "Present";
     }
@@ -479,6 +529,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           Toast.show("Catatan tidak boleh kosong", context,
               duration: 5, gravity: Toast.BOTTOM);
         } else {
+
           validation_checkout(
               context,
               base64.toString(),
@@ -492,7 +543,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               _distance,
               _lat_mainoffice,
               _long_mainoffice,
-              _category_absent.toString().toLowerCase());
+              _category_absent.toString().toLowerCase(),1);
         }
 
         // if (base64.toString() == "null") {
@@ -532,7 +583,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             _distance,
             _lat_mainoffice,
             _long_mainoffice,
-            _category_absent.toString().toLowerCase());
+            _category_absent.toString().toLowerCase(),isLembur);
       }
     } else {
       validation_checkout(
@@ -548,7 +599,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           _distance,
           _lat_mainoffice,
           _long_mainoffice,
-          _category_absent.toString().toLowerCase());
+          _category_absent.toString().toLowerCase(),isLembur);
 
       // if (base64.toString() == "null") {
       //   Toast.show("Foto wajib digunakan", context,

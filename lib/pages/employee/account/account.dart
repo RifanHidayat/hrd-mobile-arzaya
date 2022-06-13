@@ -33,6 +33,7 @@ class _AccountEmployeeState extends State<AccountEmployee> {
       employee_id,
       employee_type="",
       departement_name,
+      position="",
       profile_background = "";
   var user_id, value, photo;
   SharedPreference session = new SharedPreference();
@@ -897,7 +898,7 @@ class _AccountEmployeeState extends State<AccountEmployee> {
           ),
           Container(
             child: Text(
-              "${first_name}",
+              "${first_name??""}",
               style: TextStyle(
                 color: Colors.white,
                 letterSpacing: 0.5,
@@ -910,7 +911,7 @@ class _AccountEmployeeState extends State<AccountEmployee> {
           ),
           Container(
             child: Text(
-              "${employee_id} | ${employee_type}",
+              "${employee_id} | ${position}",
               style: TextStyle(
                 color: Colors.white.withOpacity(0.5),
                 letterSpacing: 0.5,
@@ -1238,6 +1239,7 @@ class _AccountEmployeeState extends State<AccountEmployee> {
     final data = jsonDecode(response.body);
 
     if (data['code'] == 200) {
+
       //build personal information
       setState(() {
         first_name = data['data']['first_name'];
@@ -1245,6 +1247,7 @@ class _AccountEmployeeState extends State<AccountEmployee> {
         photo = data['data']['photo'];
         employee_id = data['data']['employee_id'];
         employee_type = data['data']['employee_type']??"";
+        position=data['data']['career']!=null?data['data']['career']['position_setting']['position']:"";
       });
     } else {}
   }

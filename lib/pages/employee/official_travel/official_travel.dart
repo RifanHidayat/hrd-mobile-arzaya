@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:format_indonesia/format_indonesia.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:magentahrdios/pages/employee/official_travel/add_official_travel.dart';
 import 'package:magentahrdios/pages/employee/official_travel/rembers.dart';
 import 'package:magentahrdios/services/api_clien.dart';
@@ -21,6 +22,8 @@ class _OfficialTravelPageState extends State<OfficialTravelPage> {
   List? officialTravel;
   int officialTravellength = 0;
   var user_id;
+
+  final formatCurrency = new NumberFormat.simpleCurrency(locale: 'id_ID');
 
   @override
   void initState() {
@@ -122,6 +125,8 @@ class _OfficialTravelPageState extends State<OfficialTravelPage> {
                         description: officialTravel![index]['description'],
                         officialTraveId: officialTravel![index]['id'],
                         employeeId: user_id,
+                        bdd: "${formatCurrency.format(officialTravel![index]
+                        ['bdd'])}",
                       )));
             },
             child: Container(
@@ -180,6 +185,15 @@ class _OfficialTravelPageState extends State<OfficialTravelPage> {
                                               letterSpacing: 0.5,
                                               color: Colors.black,
                                               fontSize: 12),
+                                        ),
+                                        SizedBox(height: 10,),
+                                        Text(
+                                          "BDD:  ${formatCurrency.format(officialTravel![index]
+                                          ['bdd'])}",
+                                          style: TextStyle(
+                                              letterSpacing: 0.5,
+                                              color: Colors.black.withOpacity(0.3),
+                                              fontSize: 10),
                                         ),
                                         // Container(
                                         //   alignment: Alignment.topRight,

@@ -95,7 +95,9 @@ class Validasi {
       distance,
       office_latitude,
       office_longitude,
+      categoryAbsence,
       category) {
+    print("categort absence ${categoryAbsence}");
     // if (departement_name == "office") {
     //   if (category == "present") {
     //     if (distance <= 10) {
@@ -180,6 +182,7 @@ class Validasi {
                 "approved",
                 office_latitude,
                 office_longitude,
+                categoryAbsence,
                 category);
           } else {
             Toast.show("Catatan wajib dimasukan", context,
@@ -192,7 +195,7 @@ class Validasi {
         }
       } else {
         services.checkin(context, photos, remark, employee_id, lat, long, date,
-            time, "approved", office_latitude, office_longitude, category);
+            time, "approved", office_latitude, office_longitude,categoryAbsence, category);
       }
     }
     // if ((category == "present")) {
@@ -266,7 +269,7 @@ class Validasi {
       distance,
       office_latitude,
       office_longitude,
-      category) {
+      category,isLembur) {
     if ((lat.toString() == "null") || (long.toString() == "null")) {
       Toast.show(
           "system tidak menemukan lokasi anda,aktifkan terlebih dahulu GPS device anda",
@@ -290,7 +293,7 @@ class Validasi {
                 "approved",
                 office_latitude,
                 office_longitude,
-                category);
+                category,isLembur);
           } else {
             Toast.show("Catatan wajib dimasukan", context,
                 duration: 5, gravity: Toast.BOTTOM);
@@ -301,7 +304,7 @@ class Validasi {
         }
       } else {
         services.checkout(context, photos, remark, employee_id, lat, long, date,
-            time, "approved", office_latitude, office_longitude, category);
+            time, "approved", office_latitude, office_longitude, category,isLembur);
       }
     }
     // if (departement_name == "office") {

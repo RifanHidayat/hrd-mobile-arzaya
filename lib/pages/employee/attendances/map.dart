@@ -13,7 +13,7 @@ import 'package:magentahrdios/services/api_clien.dart';
 import 'package:magentahrdios/utalities/color.dart';
 import 'package:magentahrdios/utalities/fonts.dart';
 
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Maps extends StatefulWidget {

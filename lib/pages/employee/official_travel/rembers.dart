@@ -18,6 +18,7 @@ class RembersPage extends StatefulWidget {
       officialTravelDates,
       description,
       employeeId,
+      bdd,
       officialTraveId;
 
   RembersPage(
@@ -25,6 +26,7 @@ class RembersPage extends StatefulWidget {
       this.officialTravelDates,
       this.description,
       this.employeeId,
+      this.bdd,
       this.officialTraveId});
 
   @override
@@ -136,6 +138,32 @@ class _RembersPageState extends State<RembersPage> {
                 ),
               ),
               SizedBox(
+                height: 10,
+              ),
+              Container(
+                child: Text(
+                  "BDD",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Roboto-bold",
+                      letterSpacing: 0.5,
+                      fontSize: 13),
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                child: Text(
+                  "${widget.bdd}",
+                  style: TextStyle(
+                      color: Colors.black.withOpacity(0.5),
+                      fontFamily: "Roboto-regular",
+                      letterSpacing: 0.5,
+                      fontSize: 13),
+                ),
+              ),
+              SizedBox(
                 height: 20,
               ),
               Row(
@@ -163,6 +191,7 @@ class _RembersPageState extends State<RembersPage> {
                                   "image_url": "",
                                   "image_base64": "",
                                   "amount": "",
+                                  "description": "",
                                 },
                               );
                             });
@@ -241,7 +270,6 @@ class _RembersPageState extends State<RembersPage> {
                           SizedBox(
                             height: 10,
                           ),
-
                           Container(
                             width: 100,
                             child: TextFormField(
@@ -253,7 +281,6 @@ class _RembersPageState extends State<RembersPage> {
                                   fontFamily: 'Roboto-light',
                                   fontSize: 12),
                               decoration: InputDecoration(
-
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5),
                                   borderSide:
@@ -276,7 +303,49 @@ class _RembersPageState extends State<RembersPage> {
                               ),
                               onChanged: (value) {
                                 print(value.toString());
-                                images[index]['amount'] = "${value.toString()} t";
+                                images[index]['amount'] = "${value.toString()}";
+                              },
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            width: 100,
+                            child: TextFormField(
+                              initialValue:
+                                  images[index]['description'].toString(),
+                              cursorColor: Colors.black38,
+                              keyboardType: TextInputType.name,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Roboto-light',
+                                  fontSize: 12),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                  borderSide:
+                                      BorderSide(width: 0, color: Colors.red),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: baseColor, width: 2.0),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: blackColor.withOpacity(0.5),
+                                      width: 1.0),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                contentPadding:
+                                    EdgeInsets.only(top: 14.0, left: 5),
+                                hintText: "Ket",
+                              ),
+                              onChanged: (value) {
+                                print(value.toString());
+                                images[index]['description'] =
+                                    "${value.toString()}";
                               },
                             ),
                           ),
@@ -291,12 +360,12 @@ class _RembersPageState extends State<RembersPage> {
                                 },
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all(baseColor),
+                                      MaterialStateProperty.all(baseColor),
                                   shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
+                                          RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5.0),
-                                      )),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  )),
                                 ),
                                 child: Text(
                                   "View",
@@ -419,6 +488,7 @@ class _RembersPageState extends State<RembersPage> {
               "image_url": reimbers['image'],
               "image_base64": "",
               "amount": reimbers['amount'],
+              "description": reimbers['description'],
             },
           );
         }
@@ -429,6 +499,7 @@ class _RembersPageState extends State<RembersPage> {
             "image_url": "",
             "image_base64": "",
             "amount": "",
+            "description": "",
           },
         );
       }

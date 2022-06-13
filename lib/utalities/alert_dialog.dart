@@ -204,6 +204,7 @@ void validation_checkin(
     distance,
     office_latitude,
     office_longitude,
+    categoryAbsen,
     category) {
   Validasi validator = new Validasi();
   Alert(
@@ -235,6 +236,7 @@ void validation_checkin(
               distance,
               office_latitude,
               office_longitude,
+              categoryAbsen,
               category);
         },
         color: btnColor1,
@@ -264,16 +266,16 @@ void validation_checkout(
     distance,
     office_latitude,
     office_longitude,
-    category) {
+    category,isLembur) {
   Validasi validator = new Validasi();
-  print(time);
+  print("isLembur ${isLembur}" );
   Alert(
 
     context: context,
     type: AlertType.warning,
-    title: "Check Out ",
+    title: "${isLembur==1?"Checkout Lembur":"Checkout"}",
     // desc: "Apaka kamu yakin melakukan check out pada pukul ${time} ",
-    desc: "Apakah kamu yakin melakukan check out",
+    desc: "Apakah kamu yakin melakukan ${isLembur==1?"Checkout Lembur":"Checkout"} ?",
     buttons: [
       DialogButton(
         child: Text(
@@ -297,7 +299,7 @@ void validation_checkout(
               distance,
               office_latitude,
               office_longitude,
-              category);
+              category,isLembur);
         },
         color: btnColor1,
       ),

@@ -35,6 +35,7 @@ class _CheckinPageState extends State<CheckinPage> {
   bool _loading_image = true;
   bool _disposed = false;
 
+
   // final Geolocator geolocator = Geolocator()..forceAndroidLocationManag;
   Position? _currentPosition;
   String? _currentAddress;
@@ -111,10 +112,10 @@ class _CheckinPageState extends State<CheckinPage> {
                       SizedBox(
                         height: 15,
                       ),
-                      // _buildCategoryabsence(),
-                      // SizedBox(
-                      //   height: 15,
-                      // ),
+                      _buildCategoryabsence(),
+                      SizedBox(
+                        height: 15,
+                      ),
                       _buildLocation(),
                       SizedBox(
                         height: 20,
@@ -124,6 +125,7 @@ class _CheckinPageState extends State<CheckinPage> {
                         height: 10,
                       ),
                       _buildtime(),
+                    //  _buildCategoryabsence(),
                       Expanded(
                         child: Container(
 
@@ -292,9 +294,8 @@ class _CheckinPageState extends State<CheckinPage> {
                 style: TextStyle(color: Colors.black),
 
                 items: <String>[
-                  'Present',
-                  'Sick',
-                  'Permission',
+                  'Kantor',
+                  'Perdin',
                 ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -302,7 +303,7 @@ class _CheckinPageState extends State<CheckinPage> {
                   );
                 }).toList(),
                 hint: Text(
-                  "Present",
+                  "Kantor",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
@@ -310,6 +311,7 @@ class _CheckinPageState extends State<CheckinPage> {
                 ),
                 onChanged: (String? value) {
                   setState(() {
+                    print("${value}");
                     _category_absent = value;
                   });
                 },
@@ -468,7 +470,7 @@ class _CheckinPageState extends State<CheckinPage> {
   Future upload() async {
     var date = DateFormat("yyyy:MM:dd").format(DateTime.now());
     if (_category_absent == null) {
-      _category_absent = "Present";
+      _category_absent = "Kantor";
     }
 
     validation_checkin(
@@ -484,6 +486,7 @@ class _CheckinPageState extends State<CheckinPage> {
         _distance,
         _lat_mainoffice,
         _long_mainoffice,
+        _category_absent,
         "present");
     // if (_category_absent.toString().toLowerCase() != 'present') {
     //   if (base64.toString() == "null") {
@@ -632,6 +635,8 @@ class _CheckinPageState extends State<CheckinPage> {
     }
   }
 
+
+
   @override
   void dispose() {
     _disposed = true;
@@ -681,4 +686,6 @@ class _CheckinPageState extends State<CheckinPage> {
       });
     } catch (e) {}
   }
+
+
 }

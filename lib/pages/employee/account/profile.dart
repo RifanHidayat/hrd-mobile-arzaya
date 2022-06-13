@@ -58,7 +58,7 @@ class _DetailProfileState extends State<DetailProfile> {
       date_bpjs,
       employee_id,
       number_card_bpjs,
-      employee_type,
+
       efective_date_bpjs;
   bool _isLoading = false;
 
@@ -150,7 +150,7 @@ class _DetailProfileState extends State<DetailProfile> {
                 ),
                 Container(
                   child: Text(
-                    "${employee_id} | ${employee_type}",
+                    "${employee_id}",
                     style: TextStyle(
                       fontSize: 11,
                       fontFamily: "SFReguler",
@@ -2442,7 +2442,7 @@ class _DetailProfileState extends State<DetailProfile> {
 
       //build personal information
       first_name = data['data']['first_name'];
-      employee_type = data['data']['employee_type'];
+
       last_name = data['data']['last_name'];
       photo = data['data']['photo'];
       work_palcement = data['data']['work_placement'];

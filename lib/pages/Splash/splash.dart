@@ -78,7 +78,7 @@ class _SplassScreenState extends State<SplassScreen> {
   }
 
   Future<Timer> startTimer() async {
-    return Timer(Duration(seconds: 6), onDone);
+    return Timer(Duration(seconds: 3), onDone);
   }
 
   void onDone() {

@@ -32,7 +32,7 @@ class TabsmenuCareer extends StatelessWidget {
                 text: 'Review',
               ),
               Tab(
-                text: 'karir',
+                text: 'Karir',
               ),
             ],
           ),
